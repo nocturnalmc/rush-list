@@ -1,20 +1,29 @@
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { NativeBaseProvider } from 'native-base';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { GlobalAppProvider } from './context/globalAppContext';
+
+import Main from './screens/Main';
+import About from './screens/About';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <GlobalAppProvider>
+          <Tab.Navigator>
+            <Tab.Screen name='Rush It' component={Main} />
+            <Tab.Screen name='About' component={About} />
+          </Tab.Navigator>
+          <StatusBar style='auto' />
+        </GlobalAppProvider>
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
