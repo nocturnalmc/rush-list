@@ -5,9 +5,13 @@ import {
   Input,
   Button,
   FlatList,
+  HStack,
   Text,
+  IconButton,
+  Icon,
 } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { GlobalAppContext } from '../context/globalAppContext';
 
@@ -17,9 +21,13 @@ export default function Main() {
   const [rushList, setRushList] = useState(['ikan', 'masin']);
   const [rushText, setRushText] = useState('mula');
 
+  const handleAdd = async () => {
+    // do something...
+  };
+
   return (
     <>
-      <VStack alignItems='center'>
+      <VStack alignItems='center' mt='5'>
         <FormControl isRequired isInvalid={false} alignItems='center'>
           <Input
             onChangeText={(text) => setRushText(text)}
@@ -42,7 +50,22 @@ export default function Main() {
         </Button>
         <FlatList
           data={rushList}
-          renderItem={(singleRush) => <Text>{singleRush.item}</Text>}
+          renderItem={(singleRush) => (
+            <HStack
+              space='3'
+              m='1'
+              borderWidth='3'
+              borderColor='red'
+              borderRadius='lg'
+            >
+              <Text fontSize='lg'>{singleRush.index + 1}</Text>
+              <Text>{singleRush.item}</Text>
+              <IconButton
+                size='md'
+                icon={<Icon as={Ionicons} name='trash-sharp' />}
+              />
+            </HStack>
+          )}
         />
       </VStack>
     </>
